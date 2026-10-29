@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gustavo Alaiko e Yago Ovídio - Setembro Amarelo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fbfbfb;
+            color: #333333;
+        }
+
+        .font-cursive {
+            font-family: 'Caveat', cursive;
+        }
+
+        @keyframes breathe {
+            0%, 100% {
+                transform: scale(1);
+                background-color: #dbeafe;
+                box-shadow: 0 0 15px rgba(147, 197, 253, 0.5);
+            }
+            50% {
+                transform: scale(1.4);
+                background-color: #bfdbfe;
+                box-shadow: 0 0 30px rgba(96, 165, 250, 0.8);
+            }
+        }
+
+        .breathing-circle {
+            animation: breathe 8s ease-in-out infinite;
+        }
+
+        .modal-active {
+            display: flex !important;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between antialiased selection:bg-amber-100">
+
+    <header class="w-full bg-white border-b border-gray-100 sticky top-0 z-40 shadow-sm">
+        <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <span class="text-xl">🎗️</span>
+                <div>
+                    <span class="font-semibold text-gray-800 text-sm md:text-base block leading-tight">Apoio Emocional</span>
+                    <span class="text-[10px] text-gray-500 font-medium">Por: Gustavo Alaiko & Yago Ovídio</span>
+                </div>
+            </div>
+            <nav class="flex items-center space-x-4 md:space-x-6 text-xs md:text-sm">
+                <a href="#recursos" class="text-gray-600 hover:text-gray-900 transition-colors">Recursos</a>
+                <button onclick="abrirModalLogin()" class="text-slate-700 font-semibold hover:text-slate-900 transition-colors flex items-center gap-1">
+                    <i class="fa-solid fa-user text-xs"></i> <span id="navUserBtn">Entrar / Cadastrar</span>
+                </button>
+                <a href="tel:188" class="text-red-600 font-semibold hover:text-red-700 transition-colors flex items-center gap-1">
+                    Ajuda 188
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 py-8 space-y-10 flex-grow">
+
+        <section class="text-center py-4 space-y-5">
+            <div class="inline-flex items-center justify-center gap-2 group cursor-pointer" onclick="abrirModalLogin()">
+                <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight">
+                    olá <span id="userName" class="text-gray-900 underline decoration-dotted decoration-amber-400">visitante</span>!
+                </h1>
+                <span class="text-lg opacity-80 group-hover:scale-125 transition-transform" title="Clique para entrar / fazer login">🔑</span>
+            </div>
+            
+            <p class="text-base md:text-lg font-semibold text-gray-700">
+                Como está seu humor hoje?
+            </p>
+
+            <div class="flex flex-wrap justify-center gap-2 max-w-xl mx-auto">
+                <button onclick="selecionarHumor('Triste / Cansado(a)', '😔')" class="mood-btn flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-gray-200 bg-white text-xs md:text-sm font-medium text-gray-700 hover:bg-amber-50 hover:border-amber-300 transition-all shadow-sm">
+                    😔 <span>Triste / Cansado(a)</span>
+                </button>
+                <button onclick="selecionarHumor('Ansioso(a)', '😰')" class="mood-btn flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-gray-200 bg-white text-xs md:text-sm font-medium text-gray-700 hover:bg-amber-50 hover:border-amber-300 transition-all shadow-sm">
+                    😰 <span>Ansioso(a)</span>
+                </button>
+                <button onclick="selecionarHumor('Calmo(a)', '😌')" class="mood-btn flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-gray-200 bg-white text-xs md:text-sm font-medium text-gray-700 hover:bg-amber-50 hover:border-amber-300 transition-all shadow-sm">
+                    😌 <span>Calmo(a)</span>
+                </button>
+                <button onclick="selecionarHumor('Contente', '😊')" class="mood-btn flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-gray-200 bg-white text-xs md:text-sm font-medium text-gray-700 hover:bg-amber-50 hover:border-amber-300 transition-all shadow-sm">
+                    😊 <span>Contente</span>
+                </button>
+            </div>
+
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-3 pt-2">
+                <button onclick="abrirChat()" class="w-full sm:w-auto px-5 py-2.5 bg-slate-700 hover:bg-slate-800 text-white font-medium text-xs md:text-sm rounded-2xl shadow-md transition-all flex items-center justify-center gap-2">
+                    <i class="fa-regular font-bold fa-comments"></i>
+                    <span>falar com IA psicóloga</span>
+                </button>
+
+                <a href="tel:188" class="w-full sm:w-auto px-5 py-2.5 bg-rose-500 hover:bg-rose-600 text-white font-medium text-xs md:text-sm rounded-2xl shadow-md transition-all flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-phone"></i>
+                    <span>911 (emergência) / 188</span>
+                </a>
+            </div>
+        </section>
+
+
+        <section class="max-w-xl mx-auto">
+            <div class="bg-amber-50/70 border border-amber-200/80 rounded-2xl p-6 text-center shadow-sm relative">
+                <h3 class="text-xs font-bold uppercase tracking-wider text-amber-800 flex items-center justify-center gap-1 mb-3">
+                    FRASE DO DIA 🎗️
+                </h3>
+                
+                <p id="fraseTexto" class="font-cursive text-2xl md:text-3xl text-gray-800 leading-snug py-2 transition-opacity duration-300">
+                    "pedir ajuda não é sinal de fraqueza, é um ato de coragem."
+                </p>
+
+                <div class="mt-4">
+                    <button onclick="gerarNovaFrase()" class="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300/80 rounded-lg text-[11px] font-semibold transition-all">
+                        <i class="fa-solid fa-rotate text-[10px]"></i>
+                        <span>Gerar outra frase</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="recursos" class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            
+            <div class="bg-white rounded-2xl border border-gray-100 p-5 flex flex-col justify-between items-center text-center shadow-sm min-h-[300px]">
+                <div class="w-full">
+                    <h3 class="font-bold text-gray-800 text-sm md:text-base flex items-center justify-center gap-1.5">
+                        <span>💨</span> Respiração Guiada
+                    </h3>
+                    <p class="text-xs text-gray-500 mt-1">
+                        Inspire e expire seguindo a animação abaixo para acalmar a mente.
+                    </p>
+                </div>
+
+                <div class="my-8 flex items-center justify-center">
+                    <div id="circleContainer" class="w-24 h-24 rounded-full flex items-center justify-center text-blue-600 font-semibold text-xs breathing-circle transition-all">
+                        <span id="breathText" class="font-medium">Inspire...</span>
+                    </div>
+                </div>
+
+                <p class="text-[11px] text-gray-400">
+                    4 segundos inspirando • 4 segundos expirando
+                </p>
+            </div>
+
+            <div class="bg-white rounded-2xl border border-gray-100 p-5 flex flex-col justify-between shadow-sm">
+                <div>
+                    <h3 class="font-bold text-gray-800 text-sm md:text-base flex items-center gap-1.5 mb-1">
+                        <span>🩺</span> Onde buscar ajuda gratuita?
+                    </h3>
+                    <p class="text-xs text-gray-500 mb-4">
+                        Você nunca está sozinho. Existem serviços profissionais gratuitos disponíveis 24h:
+                    </p>
+
+                    <div class="space-y-3 text-xs">
+                        <div class="p-2.5 rounded-lg bg-gray-50 border border-gray-100">
+                            <p class="font-bold text-gray-800 flex items-center gap-1">
+                                📞 CVV (Centro de Valorização da Vida)
+                            </p>
+                            <p class="text-gray-600 text-[11px] mt-0.5">
+                                Disque <strong class="text-red-500">188</strong> ou acesse <a href="https://cvv.org.br" target="_blank" class="text-blue-600 underline">cvv.org.br</a>. Atendimento gratuito, anônimo e 24h.
+                            </p>
+                        </div>
+
+                        <div class="p-2.5 rounded-lg bg-gray-50 border border-gray-100">
+                            <p class="font-bold text-gray-800 flex items-center gap-1">
+                                🏥 CAPS (Posto de Saúde)
+                            </p>
+                            <p class="text-gray-600 text-[11px] mt-0.5">
+                                Procure o Centro de Atenção Psicossocial mais próximo na sua cidade.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="tel:188" class="mt-4 w-full py-2.5 bg-red-500 hover:bg-red-600 text-white text-xs font-semibold rounded-xl text-center shadow transition-colors">
+                    Ligar para o CVV (188) Agora
+                </a>
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="w-full border-t border-gray-100 bg-white py-4 mt-8">
+        <div class="max-w-4xl mx-auto px-4 text-center space-y-2">
+            <p class="text-xs font-semibold text-gray-700">
+                Desenvolvido por: Gustavo Alaiko & Yago Ovídio
+            </p>
+            <p class="text-[11px] text-gray-400 flex items-center justify-center gap-1">
+                <span>🎗️</span>
+                <span><strong>Setembro Amarelo:</strong> Este site possui caráter educativo e de acolhimento. Não substitui atendimento psicológico ou médico profissional.</span>
+            </p>
+        </div>
+    </footer>
+
+    <div id="loginModal" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-white w-full max-w-sm rounded-2xl shadow-xl border border-gray-100 overflow-hidden flex flex-col p-6 space-y-4">
+            <div class="flex justify-between items-center">
+                <h3 class="text-base font-bold text-gray-800 flex items-center gap-2">
+                    🔑 Entrar no Site
+                </h3>
+                <button onclick="fecharModalLogin()" class="text-gray-400 hover:text-gray-600 text-lg">
+                    &times;
+                </button>
+            </div>
+            <form onsubmit="realizarLogin(event)" class="space-y-3">
+                <div>
+                    <label class="block text-xs font-medium text-gray-600 mb-1">Seu Nome / Apelido</label>
+                    <input id="loginInputNome" type="text" required placeholder="Digite seu nome..." class="w-full border border-gray-200 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-amber-400">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-600 mb-1">Senha (opcional)</label>
+                    <input type="password" placeholder="••••••••" class="w-full border border-gray-200 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-amber-400">
+                </div>
+                <button type="submit" class="w-full bg-amber-400 hover:bg-amber-500 text-slate-900 font-semibold py-2 rounded-xl text-xs transition-colors shadow-sm">
+                    Entrar
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div id="chatModal" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-white w-full max-w-md rounded-2xl shadow-xl border border-gray-100 overflow-hidden flex flex-col h-[480px]">
+            <div class="bg-slate-700 text-white p-3.5 flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 rounded-full bg-amber-400 text-slate-800 flex items-center justify-center font-bold text-xs">
+                        IA
+                    </div>
+                    <div>
+                        <h4 class="text-xs font-bold">Assistente de Acolhimento</h4>
+                        <p class="text-[10px] text-slate-300 flex items-center gap-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block"></span> Online agora
+                        </p>
+                    </div>
+                </div>
+                <button onclick="fecharChat()" class="text-slate-300 hover:text-white text-lg px-2">
+                    &times;
+                </button>
+            </div>
+
+            <div id="chatMessages" class="flex-1 p-4 overflow-y-auto space-y-3 bg-slate-50 text-xs">
+            </div>
+
+            <div class="p-3 bg-white border-t border-gray-100 flex gap-2">
+                <input id="chatInput" type="text" placeholder="Escreva como você está se sentindo..." class="flex-1 border border-gray-200 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-amber-400" onkeypress="if(event.key === 'Enter') enviarMensagem()">
+                <button onclick="enviarMensagem()" class="bg-slate-700 hover:bg-slate-800 text-white px-3 py-2 rounded-xl text-xs font-medium transition-colors">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const frases = [
+            "pedir ajuda não é sinal de fraqueza, é um ato de coragem.",
+            "sua jornada importa e cada pequeno passo deve ser celebrado.",
+            "você não precisa carregar o mundo inteiro nas suas costas.",
+            "dias difíceis também passam. Respire fundo e siga em frente.",
+            "cuidar da sua mente é uma das maiores demonstrações de amor próprio."
+        ];
+
+        let indiceFraseAtual = 0;
+        let humorSelecionado = "Neutro";
+        let nomeUsuario = "visitante";
+
+        function abrirModalLogin() {
+            document.getElementById('loginModal').classList.add('modal-active');
+        }
+
+        function fecharModalLogin() {
+            document.getElementById('loginModal').classList.remove('modal-active');
+        }
+
+        function realizarLogin(event) {
+            event.preventDefault();
+            const inputNome = document.getElementById('loginInputNome').value.trim();
+            if (inputNome !== "") {
+                nomeUsuario = inputNome;
+                document.getElementById('userName').innerText = nomeUsuario.toLowerCase();
+                document.getElementById('navUserBtn').innerText = nomeUsuario;
+                fecharModalLogin();
+            }
+        }
+
+        function selecionarHumor(humor, emoji) {
+            humorSelecionado = humor;
+            const btns = document.querySelectorAll('.mood-btn');
+            btns.forEach(btn => {
+                if (btn.innerText.includes(humor)) {
+                    btn.classList.add('bg-amber-100', 'border-amber-400', 'ring-2', 'ring-amber-200');
+                } else {
+                    btn.classList.remove('bg-amber-100', 'border-amber-400', 'ring-2', 'ring-amber-200');
+                }
+            });
+        }
+
+        function gerarNovaFrase() {
+            const elementoTexto = document.getElementById('fraseTexto');
+            elementoTexto.style.opacity = '0';
+
+            setTimeout(() => {
+                indiceFraseAtual = (indiceFraseAtual + 1) % frases.length;
+                elementoTexto.innerText = `"${frases[indiceFraseAtual]}"`;
+                elementoTexto.style.opacity = '1';
+            }, 200);
+        }
+
+        const breathText = document.getElementById('breathText');
+        setInterval(() => {
+            if (breathText.innerText === 'Inspire...') {
+                breathText.innerText = 'Expire...';
+            } else {
+                breathText.innerText = 'Inspire...';
+            }
+        }, 4000);
+
+        function abrirChat() {
+            const modal = document.getElementById('chatModal');
+            const messagesContainer = document.getElementById('chatMessages');
+            
+            messagesContainer.innerHTML = `
+                <div class="bg-white border border-gray-100 p-3 rounded-2xl rounded-tl-none shadow-sm max-w-[85%] text-gray-700">
+                    Olá, <strong>${nomeUsuario}</strong>! Sou sua assistente virtual de apoio emocional. 💛
+                    <br><br>
+                    ${humorSelecionado !== 'Neutro' ? `Notei que você selecionou que está se sentindo <strong>${humorSelecionado}</strong>.` : 'Como você está se sentindo hoje?'} 
+                    Estou aqui para ouvir você sem julgamentos.
+                </div>
+            `;
+            
+            modal.classList.add('modal-active');
+        }
+
+        function fecharChat() {
+            document.getElementById('chatModal').classList.remove('modal-active');
+        }
+
+        function enviarMensagem() {
+            const input = document.getElementById('chatInput');
+            const texto = input.value.trim();
+            if (!texto) return;
+
+            const messagesContainer = document.getElementById('chatMessages');
+
+            messagesContainer.innerHTML += `
+                <div class="flex justify-end">
+                    <div class="bg-slate-700 text-white p-3 rounded-2xl rounded-tr-none max-w-[85%] shadow-sm">
+                        ${texto}
+                    </div>
+                </div>
+            `;
+
+            input.value = '';
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+            setTimeout(() => {
+                let resposta = "Obrigado por compartilhar isso comigo. Lembre-se de que seus sentimentos são válidos. Se estiver se sentindo sobrecarregado(a), considere conversar com os voluntários do CVV pelo número 188.";
+                
+                messagesContainer.innerHTML += `
+                    <div class="bg-white border border-gray-100 p-3 rounded-2xl rounded-tl-none shadow-sm max-w-[85%] text-gray-700">
+                        ${resposta}
+                    </div>
+                `;
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
